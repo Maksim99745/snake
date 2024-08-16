@@ -1,4 +1,4 @@
-# snake
+# Snake
 
 ## Run `npm install` to set all dependencies
 
