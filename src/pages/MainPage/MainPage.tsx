@@ -1,3 +1,4 @@
+import { GameBoard } from './components/board/GameBoard/GameBoard';
 import { useGameStatus } from './hooks/useGameStatus';
 
 export default function MainPage() {
@@ -5,6 +6,9 @@ export default function MainPage() {
   return (
     <div>
       <h2>Snake game</h2>
+      <div>
+        <GameBoard />
+      </div>
       <button type="button" onClick={handleGameStatus}>
         {gameStatus}
       </button>
