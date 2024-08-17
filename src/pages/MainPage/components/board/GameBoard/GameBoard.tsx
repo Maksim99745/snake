@@ -1,23 +1,25 @@
-import { Grid } from '@mui/material';
+import { useMemo } from 'react';
 import { Square } from '../../square/Square';
+import styles from './GameBoard.module.scss';
 
 export function GameBoard() {
   const BOARD_SIZE = 10;
-  const squares = [];
 
-  for (let y = 0; y < BOARD_SIZE; y += 1) {
-    for (let x = 0; x < BOARD_SIZE; x += 1) {
-      squares.push({ x, y });
+  const squares = useMemo(() => {
+    const squaresArray = [];
+    for (let y = 0; y < BOARD_SIZE; y += 1) {
+      for (let x = 0; x < BOARD_SIZE; x += 1) {
+        squaresArray.push({ x, y });
+      }
     }
-  }
+    return squaresArray;
+  }, [BOARD_SIZE]);
 
   return (
-    <Grid container xs={12}>
+    <div className={styles.gameBoard}>
       {squares.map((square) => (
-        <Grid item xs={1.2} key={crypto.randomUUID()}>
-          <Square />
-        </Grid>
+        <Square key={crypto.randomUUID()} square={square} />
       ))}
-    </Grid>
+    </div>
   );
 }

@@ -1,12 +1,12 @@
 import { useState } from 'react';
 
 export const useGameStatus = () => {
-  const [gameStatus, setGameStatus] = useState<'start' | 'stop'>('start');
+  const [gameStatus, setGameStatus] = useState<'Start' | 'Stop'>('Start');
   const handleGameStatus = () => {
-    if (gameStatus === 'start') {
-      setGameStatus('stop');
+    if (gameStatus === 'Start') {
+      setGameStatus('Stop');
     } else {
-      setGameStatus('start');
+      setGameStatus('Start');
     }
   };
   return { gameStatus, handleGameStatus };
