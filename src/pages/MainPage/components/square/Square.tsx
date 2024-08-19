@@ -10,7 +10,6 @@ interface SquareProps {
 
 export function Square({ square }: SquareProps) {
   const snake = useSelector((state: RootState) => state.snake);
-  const apple = useSelector((state: RootState) => state.apple);
 
   const squareStyle = useMemo(() => {
     let style = '';
@@ -18,11 +17,11 @@ export function Square({ square }: SquareProps) {
       snake.snakeCoordinates.some((snakeCoordinate) => snakeCoordinate.x === square.x && snakeCoordinate.y === square.y)
     ) {
       style = 'snake';
-    } else if (apple.some((appleCoordinate) => appleCoordinate.x === square.x && appleCoordinate.y === square.y)) {
+    } else if (snake.apple.x === square.x && snake.apple.y === square.y) {
       style = 'apple';
     }
     return style;
-  }, [square, snake, apple]);
+  }, [square, snake]);
 
   return <div className={`${styles.square} ${styles[squareStyle]}`} />;
 }

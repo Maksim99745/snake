@@ -1,22 +1,27 @@
-import { useRef } from 'react';
+import React, { useRef } from 'react';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store/store';
+import { SNAKE_MOVE_SPEED } from '../../varibles/commonVariables';
 import { GameBoard } from './components/board/GameBoard/GameBoard';
 import { useActions } from './hooks/useActions';
 import { useGameStatus } from './hooks/useGameStatus';
 
 export default function MainPage() {
+  const { score } = useSelector((state: RootState) => state.snake);
   const { gameStatus, handleGameStatus } = useGameStatus();
-  const { moveSnake } = useActions();
-
-  const SNAKE_MOVE_SPEED = 300;
+  const { moveSnake, changeDirectionValue, setNewDirection, checkApple, checkGameOver } = useActions();
 
   const timer = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  const update = () => {
+  const updateSnake = () => {
     moveSnake();
+    setNewDirection();
+    checkApple();
+    checkGameOver();
   };
 
   const startTime = () => {
-    timer.current = setInterval(() => update(), SNAKE_MOVE_SPEED);
+    timer.current = setInterval(() => updateSnake(), SNAKE_MOVE_SPEED);
   };
 
   const stopTimer = () => {
@@ -35,9 +40,14 @@ export default function MainPage() {
     handleGameStatus();
   };
 
+  const keyDownHandler = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    changeDirectionValue(event.key);
+  };
+
   return (
-    <div>
+    <div onKeyDownCapture={keyDownHandler}>
       <h2>Snake game</h2>
+      <h3>Score: {score}</h3>
       <div>
         <GameBoard />
       </div>
