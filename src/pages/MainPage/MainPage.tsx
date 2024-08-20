@@ -1,53 +1,65 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
-import { SNAKE_MOVE_SPEED } from '../../varibles/commonVariables';
-import { GameBoard } from './components/board/GameBoard/GameBoard';
+import { GameBoard } from './components/GameBoard/GameBoard/GameBoard';
 import { useActions } from './hooks/useActions';
 import { useGameStatus } from './hooks/useGameStatus';
+import { useMoveSnake } from './hooks/useMoveSnake';
+import styles from './MainPage.module.scss';
 
 export default function MainPage() {
-  const { score } = useSelector((state: RootState) => state.snake);
+  const { score, isGameOver } = useSelector((state: RootState) => state.snake);
   const { gameStatus, handleGameStatus } = useGameStatus();
-  const { moveSnake, changeDirectionValue, setNewDirection, checkApple, checkGameOver } = useActions();
-
-  const timer = useRef<ReturnType<typeof setInterval> | null>(null);
-
-  const updateSnake = () => {
-    moveSnake();
-    setNewDirection();
-    checkApple();
-    checkGameOver();
-  };
-
-  const startTime = () => {
-    timer.current = setInterval(() => updateSnake(), SNAKE_MOVE_SPEED);
-  };
-
-  const stopTimer = () => {
-    if (timer.current !== null) {
-      clearInterval(timer.current);
-      timer.current = null;
-    }
-  };
+  const { changeDirectionValue, restartGame } = useActions();
+  const [localIsGameOver, setLocalIsGameOver] = useState(isGameOver);
+  const { startMoveSnake, stopMoveSnake } = useMoveSnake();
+  const gameContainerRef = useRef<HTMLDivElement>(null);
 
   const handleStartGame = () => {
-    if (gameStatus !== 'Stop') {
-      startTime();
-    } else {
-      stopTimer();
+    if (gameStatus === 'Restart') {
+      startMoveSnake();
+      restartGame();
+      setLocalIsGameOver(false);
+      handleGameStatus('Stop');
+    } else if (gameStatus === 'Stop') {
+      stopMoveSnake();
+      handleGameStatus('Start');
+    } else if (gameStatus === 'Start') {
+      startMoveSnake();
+      handleGameStatus('Stop');
     }
-    handleGameStatus();
   };
 
   const keyDownHandler = (event: React.KeyboardEvent<HTMLDivElement>) => {
     changeDirectionValue(event.key);
   };
 
+  useEffect(() => {
+    if (isGameOver) {
+      stopMoveSnake();
+      setLocalIsGameOver(true);
+      handleGameStatus('Restart');
+    }
+  }, [isGameOver]);
+
+  const handleBlur = () => {
+    if (gameContainerRef.current) {
+      gameContainerRef.current.focus();
+    }
+  };
+
   return (
-    <div onKeyDownCapture={keyDownHandler}>
+    <div
+      ref={gameContainerRef}
+      tabIndex={0}
+      role="button"
+      onKeyDownCapture={keyDownHandler}
+      onBlur={handleBlur}
+      style={{ outline: 'none' }}
+    >
       <h2>Snake game</h2>
-      <h3>Score: {score}</h3>
+      {!localIsGameOver && <h2>Current score: {score}</h2>}
+      {localIsGameOver && <h2 className={styles.gameOver}>Game over! Your final score: {score}</h2>}
       <div>
         <GameBoard />
       </div>

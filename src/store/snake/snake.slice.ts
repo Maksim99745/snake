@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { getNewCoordinate } from '../../utils/getNewCoordinate';
-import { THE_FIRST_SQUARE_INDEX, THE_LAST_SQUARE_INDEX } from '../../varibles/commonVariables';
+import { STOP_KEY_COMBINATIONS, THE_FIRST_SQUARE_INDEX, THE_LAST_SQUARE_INDEX } from '../../varibles/commonVariables';
 
 const initialState = {
   apple: { x: 5, y: 5 },
@@ -8,28 +8,12 @@ const initialState = {
     { x: 0, y: 0 },
     { x: 1, y: 0 },
   ],
+  isGameOver: false,
   snakeHead: { x: 1, y: 0 },
   score: 0,
   snakeSize: 2,
   direction: 'd',
-  stopKeyCombinations: [
-    ['w', 's'],
-    ['s', 'w'],
-    ['a', 'd'],
-    ['d', 'a'],
-    ['ArrowUp', 'ArrowDown'],
-    ['ArrowDown', 'ArrowUp'],
-    ['ArrowLeft', 'ArrowRight'],
-    ['ArrowRight', 'ArrowLeft'],
-    ['w', 'ArrowDown'],
-    ['ArrowDown', 'w'],
-    ['s', 'ArrowUp'],
-    ['ArrowUp', 's'],
-    ['a', 'ArrowRight'],
-    ['ArrowRight', 'a'],
-    ['d', 'ArrowLeft'],
-    ['ArrowLeft', 'd'],
-  ],
+  stopKeyCombinations: STOP_KEY_COMBINATIONS,
   savedKey: 'd',
 };
 
@@ -43,22 +27,32 @@ export const snakeSlice = createSlice({
       switch (state.direction) {
         case 'd':
         case 'ArrowRight':
-          x = x >= THE_LAST_SQUARE_INDEX ? THE_FIRST_SQUARE_INDEX : x + 1;
+          x += 1;
           break;
         case 'a':
         case 'ArrowLeft':
-          x = x <= THE_FIRST_SQUARE_INDEX ? THE_LAST_SQUARE_INDEX : x - 1;
+          x -= 1;
           break;
         case 'w':
         case 'ArrowUp':
-          y = y <= THE_FIRST_SQUARE_INDEX ? THE_LAST_SQUARE_INDEX : y - 1;
+          y -= 1;
           break;
         case 's':
         case 'ArrowDown':
-          y = y >= THE_LAST_SQUARE_INDEX ? THE_FIRST_SQUARE_INDEX : y + 1;
+          y += 1;
           break;
         default:
           break;
+      }
+
+      // Check for wall collision
+      if (
+        x < THE_FIRST_SQUARE_INDEX ||
+        x > THE_LAST_SQUARE_INDEX ||
+        y < THE_FIRST_SQUARE_INDEX ||
+        y > THE_LAST_SQUARE_INDEX
+      ) {
+        return { ...state, isGameOver: true };
       }
 
       const newSnakeCoordinates = [...state.snakeCoordinates, { x, y }];
@@ -104,9 +98,15 @@ export const snakeSlice = createSlice({
       const snakeHeadless = state.snakeCoordinates.slice();
       snakeHeadless.pop();
       const isBite = snakeHeadless.find((coordinate) => coordinate.x === x && coordinate.y === y);
+
       if (isBite) {
-        window.location.reload();
+        return { ...state, isGameOver: true };
       }
+
+      return state;
+    },
+    restartGame() {
+      return initialState;
     },
   },
 });

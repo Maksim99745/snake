@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { Square } from '../../square/Square';
+import { Square } from '../../Square/Square';
 import styles from './GameBoard.module.scss';
 
 export function GameBoard() {
