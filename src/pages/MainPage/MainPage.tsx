@@ -1,8 +1,12 @@
+import { Button } from '@mui/material';
 import React, { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
 import { GameBoard } from './components/GameBoard/GameBoard/GameBoard';
+import OpenRecordsButton from './components/OpenRecordsButton';
+import { RecordsModal } from './components/RecordsModal/RecordsModal';
 import { useActions } from './hooks/useActions';
+import { useDataBase } from './hooks/useDataBase';
 import { useGameStatus } from './hooks/useGameStatus';
 import { useMoveSnake } from './hooks/useMoveSnake';
 import styles from './MainPage.module.scss';
@@ -14,6 +18,7 @@ export default function MainPage() {
   const [localIsGameOver, setLocalIsGameOver] = useState(isGameOver);
   const { startMoveSnake, stopMoveSnake } = useMoveSnake();
   const gameContainerRef = useRef<HTMLDivElement>(null);
+  const { writeResultToDataBase } = useDataBase();
 
   const handleStartGame = () => {
     if (gameStatus === 'Restart') {
@@ -38,6 +43,7 @@ export default function MainPage() {
     if (isGameOver) {
       stopMoveSnake();
       setLocalIsGameOver(true);
+      writeResultToDataBase();
       handleGameStatus('Restart');
     }
   }, [isGameOver]);
@@ -58,14 +64,17 @@ export default function MainPage() {
       style={{ outline: 'none' }}
     >
       <h2>Snake game</h2>
+
       {!localIsGameOver && <h2>Current score: {score}</h2>}
       {localIsGameOver && <h2 className={styles.gameOver}>Game over! Your final score: {score}</h2>}
+      <RecordsModal openControl={OpenRecordsButton} />
       <div>
         <GameBoard />
       </div>
-      <button type="button" onClick={handleStartGame}>
+      <Button variant="contained" type="button" onClick={handleStartGame}>
         {gameStatus}
-      </button>
+      </Button>
+      <div />
     </div>
   );
 }

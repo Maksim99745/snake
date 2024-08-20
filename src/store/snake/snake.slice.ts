@@ -45,7 +45,6 @@ export const snakeSlice = createSlice({
           break;
       }
 
-      // Check for wall collision
       if (
         x < THE_FIRST_SQUARE_INDEX ||
         x > THE_LAST_SQUARE_INDEX ||
