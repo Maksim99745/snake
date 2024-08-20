@@ -48,11 +48,11 @@ export default function MainPage() {
     }
   }, [isGameOver]);
 
-  const handleBlur = () => {
-    if (gameContainerRef.current) {
-      gameContainerRef.current.focus();
-    }
-  };
+  // const handleBlur = () => {
+  //   if (gameContainerRef.current) {
+  //     gameContainerRef.current.focus();
+  //   }
+  // };
 
   return (
     <div
@@ -60,7 +60,6 @@ export default function MainPage() {
       tabIndex={0}
       role="button"
       onKeyDownCapture={keyDownHandler}
-      onBlur={handleBlur}
       style={{ outline: 'none' }}
     >
       <h2>Snake game</h2>
