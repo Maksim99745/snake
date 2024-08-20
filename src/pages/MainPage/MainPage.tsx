@@ -48,12 +48,6 @@ export default function MainPage() {
     }
   }, [isGameOver]);
 
-  // const handleBlur = () => {
-  //   if (gameContainerRef.current) {
-  //     gameContainerRef.current.focus();
-  //   }
-  // };
-
   return (
     <div
       ref={gameContainerRef}

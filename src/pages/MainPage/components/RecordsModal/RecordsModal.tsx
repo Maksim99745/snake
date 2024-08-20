@@ -10,6 +10,7 @@ export interface RecordsModalProps {
 
 export function RecordsModal({ openControl: OpenControl }: RecordsModalProps) {
   const { visible, show, close } = useModalState();
+
   const { data, isLoading, error, revalidate } = useGetGameData();
   useEffect(() => {
     if (visible) {

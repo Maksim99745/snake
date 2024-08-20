@@ -6,7 +6,6 @@ export const useGetGameData = () => {
   const { getGameDate } = useDataBase();
   const { data, error, isLoading } = useSWR<GameData[]>('gameResults', getGameDate);
 
-  // Function to trigger a revalidation manually
   const revalidate = () => {
     mutate('gameResults');
   };
