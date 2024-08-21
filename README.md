@@ -7,3 +7,6 @@
 ```
 npm run dev
 ```
+### Deployment 
+
+https://snake-game--rainbow-mooncake-8667c4.netlify.app/
