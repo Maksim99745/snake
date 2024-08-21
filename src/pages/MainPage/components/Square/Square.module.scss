@@ -1,6 +1,6 @@
 .square {
-  width: 5vh;
-  height: 5vh;
+  width: 2.7vw;
+  height: 2.7vw;
   border: 1px solid #363535;
   border-radius: 8px;
   margin: 2px;
@@ -14,13 +14,6 @@
   transition: 0.5s ease-in-out;
 }
 
-.snake:nth-last-of-type(1) {
-  background: radial-gradient(circle, #388e3c 0%, #2e7d32 70%, #1b5e20 100%);
-  border-radius: 50%;
-  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
-  position: relative;
-}
-
 .apple {
   background-image: url('../../../../assets/apple.png');
   background-size: cover;
@@ -28,4 +21,25 @@
   background-repeat: no-repeat;
   border-color: transparent;
   box-shadow: none;
+}
+
+@media (max-width: 1400px) {
+  .square {
+    width: 4vw;
+    height: 4vw;
+  }
+}
+
+@media (max-width: 1024px) {
+  .square {
+    width: 5vw;
+    height: 5vw;
+  }
+}
+
+@media (max-width: 600px) {
+  .square {
+    width: 6vw;
+    height: 6vw;
+  }
 }

@@ -1,10 +1,12 @@
 import { Button, Typography } from '@mui/material';
 import { useRef } from 'react';
 import { useSelector } from 'react-redux';
+
 import { RootState } from '../../store/store';
 import { GameBoard } from './components/GameBoard/GameBoard/GameBoard';
 import OpenRecordsButton from './components/OpenRecordsButton';
 import { RecordsModal } from './components/RecordsModal/RecordsModal';
+import { SwipeHint } from './components/SwipeHint/SwipeHint';
 import { useActions } from './hooks/useActions';
 import { useStartStopGame } from './hooks/useStartStop';
 
@@ -27,7 +29,8 @@ export default function MainPage() {
       onKeyDownCapture={keyDownHandler}
       style={{ outline: 'none' }}
     >
-      <Typography variant="h2" gutterBottom>
+      <SwipeHint />
+      <Typography variant="h4" gutterBottom>
         Snake game
       </Typography>
 
@@ -37,7 +40,7 @@ export default function MainPage() {
         </Typography>
       )}
       {localIsGameOver && (
-        <Typography variant="h5" gutterBottom>
+        <Typography variant="h5" gutterBottom color="#E32636">
           Game over! Your final score: {score}
         </Typography>
       )}
