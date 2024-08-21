@@ -48,14 +48,7 @@ export default function MainPage() {
       <div>
         <GameBoard />
       </div>
-      <Button
-        variant="contained"
-        className="button-no-focus"
-        color="secondary"
-        size="large"
-        type="button"
-        onClick={handleStartGame}
-      >
+      <Button variant="contained" color="secondary" size="large" type="button" onClick={handleStartGame}>
         {gameStatus}
       </Button>
       <div />

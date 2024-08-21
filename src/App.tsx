@@ -8,7 +8,7 @@ export default function App() {
   const { handlers } = useHandleSwipe();
 
   return (
-    <div className="App" {...handlers}>
+    <div className="App" {...handlers} style={{ touchAction: 'none' }}>
       <RouterProvider router={router} fallbackElement={<LoaderSpinner />} />
     </div>
   );
