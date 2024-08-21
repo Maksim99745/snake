@@ -1,5 +1,5 @@
 import { ItemCoordinate } from '../models/ItemCoordinate';
-import { BORDER_SIZE } from '../varibles/commonVariables';
+import { BORDER_SIZE } from '../variables/variables';
 
 const isCoordinateOnSnake = (coordinates: ItemCoordinate[], x: number, y: number): boolean =>
   coordinates.some((coord) => coord.x === x && coord.y === y);

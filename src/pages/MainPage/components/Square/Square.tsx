@@ -23,5 +23,5 @@ export function Square({ square }: SquareProps) {
     return style;
   }, [square, snake]);
 
-  return <div className={`${styles.square} ${styles[squareStyle]}`} />;
+  return <div className={`${styles.square} ${styles[squareStyle] || ''}`} />;
 }

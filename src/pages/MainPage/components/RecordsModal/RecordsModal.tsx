@@ -1,6 +1,7 @@
 import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, Divider, Typography } from '@mui/material';
 import { ElementType, useEffect } from 'react';
 import LoaderSpinner from '../../../../components/LoaderSpinner';
+import { AMOUNT_OF_DISPLAYED_GAME_RECORDS } from '../../../../variables/variables';
 import { useGetGameData } from './hooks/useGetGameData';
 import { useModalState } from './hooks/useModakState';
 
@@ -30,12 +31,12 @@ export function RecordsModal({ openControl: OpenControl }: RecordsModalProps) {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title">Game records</DialogTitle>
+        <DialogTitle id="alert-dialog-title">10 last game records</DialogTitle>
         <DialogContent>
           {isLoading && <LoaderSpinner />}
           {error && <Typography>Error: {error.message}</Typography>}
           {isEmptyData && <Typography>There will be placed your game records</Typography>}
-          {data?.map((record) => (
+          {data?.slice(-AMOUNT_OF_DISPLAYED_GAME_RECORDS).map((record) => (
             <Box key={crypto.randomUUID()}>
               <Typography>{record?.time}</Typography>
               <Typography>{record?.score}</Typography>

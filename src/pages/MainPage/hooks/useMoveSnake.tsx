@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { SNAKE_MOVE_SPEED } from '../../../varibles/commonVariables';
+import { SNAKE_MOVE_SPEED } from '../../../variables/variables';
 import { useActions } from './useActions';
 
 export const useMoveSnake = () => {

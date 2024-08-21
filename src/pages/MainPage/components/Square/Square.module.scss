@@ -1,18 +1,31 @@
 .square {
   width: 5vh;
   height: 5vh;
-  border: 1px solid black;
-  border-radius: 5px;
-  margin: 1px;
+  border: 1px solid #363535;
+  border-radius: 8px;
+  margin: 2px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .snake {
-  transition: 0.2s ease-in-out;
-  background-color: green;
+  transition: transform 0.2s ease-in-out;
+  background: linear-gradient(145deg, #4caf50, #388e3c);
+  border-radius: 8px;
+  transition: 0.5s ease-in-out;
+}
+
+.snake:nth-last-of-type(1) {
+  background: radial-gradient(circle, #388e3c 0%, #2e7d32 70%, #1b5e20 100%);
+  border-radius: 50%;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
+  position: relative;
 }
 
 .apple {
   background-image: url('../../../../assets/apple.png');
-  background-size: contain;
+  background-size: cover;
+  background-position: center;
   background-repeat: no-repeat;
+  border-color: transparent;
+  box-shadow: none;
 }

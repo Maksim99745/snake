@@ -5,6 +5,7 @@ export default function OpenRecordsButton(props: ButtonProps) {
   return (
     <Button
       variant="outlined"
+      color="secondary"
       size="small"
       startIcon={<EmojiEventsIcon sx={{ display: { xs: 'none', sm: 'block' } }} />}
       {...props}

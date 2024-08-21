@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { getNewCoordinate } from '../../utils/getNewCoordinate';
-import { STOP_KEY_COMBINATIONS, THE_FIRST_SQUARE_INDEX, THE_LAST_SQUARE_INDEX } from '../../varibles/commonVariables';
+import { STOP_KEY_COMBINATIONS, THE_FIRST_SQUARE_INDEX, THE_LAST_SQUARE_INDEX } from '../../variables/variables';
 
 const initialState = {
   apple: { x: 5, y: 5 },
