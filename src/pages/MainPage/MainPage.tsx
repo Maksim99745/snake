@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 
 import { RootState } from '../../store/store';
 import { GameBoard } from './components/GameBoard/GameBoard/GameBoard';
-import OpenRecordsButton from './components/OpenRecordsButton';
+import OpenRecordsButton from './components/RecordsModal/OpenRecordsButton';
 import { RecordsModal } from './components/RecordsModal/RecordsModal';
 import { SwipeHint } from './components/SwipeHint/SwipeHint';
 import { useActions } from './hooks/useActions';
@@ -48,7 +48,14 @@ export default function MainPage() {
       <div>
         <GameBoard />
       </div>
-      <Button variant="contained" color="secondary" size="large" type="button" onClick={handleStartGame}>
+      <Button
+        variant="contained"
+        className="button-no-focus"
+        color="secondary"
+        size="large"
+        type="button"
+        onClick={handleStartGame}
+      >
         {gameStatus}
       </Button>
       <div />

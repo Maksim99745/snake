@@ -1,10 +1,13 @@
-import { useSwipeable } from 'react-swipeable';
+import { SwipeEventData, useSwipeable } from 'react-swipeable';
 import { useActions } from '../pages/MainPage/hooks/useActions';
 
 export const useHandleSwipe = () => {
   const { changeDirectionValue } = useActions();
 
-  const handleSwipe = (direction: string) => () => {
+  const handleSwipe = (direction: string) => (eventData: SwipeEventData) => {
+    if (eventData.event.cancelable) {
+      eventData.event.preventDefault();
+    }
     changeDirectionValue(direction);
   };
 

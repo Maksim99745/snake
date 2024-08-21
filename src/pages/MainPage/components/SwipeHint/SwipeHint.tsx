@@ -19,7 +19,7 @@ export function SwipeHint() {
 
   return (
     <div className={styles.swipeHint}>
-      <p>Swipe to navigate!</p>
+      <p>Swipe to navigate on mobile!</p>
       <div className={styles.swipeGesture}>👆👇👈👉</div>
     </div>
   );
